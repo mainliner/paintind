@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+    <title>Paintind</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/bootstrap/css/bootstrap-wysiwyg.css" rel="stylesheet">
+
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+        background-image: url("/static/bootstrap/img/debut_light.png");
+      }
+      #describe{
+        width: 270px;
+      }
+    </style>
+    <link href="/static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="../assets/ico/favicon.png">
+<style id="css" type="text/css">
+
+  .t{
+
+     width: 750px
+     
+
+   }
+
+</style>
+
+
+</head>
+
+<body >
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+      <a class="brand" href="" id="appname" >Paintind</a>
+      <ul class="nav">
+        <li >
+          <a href="/storage/show/">Browse</a> 
+        </li>
+      </ul>
+      <div class = "nav"> 
+		<form class="navbar-search">
+  		<input type="text" class="search-query" placeholder="Search People">
+		</form>
+	</div>
+      <div class="nav-collapse in collapse" ><!--can use this style="height: auto;"-->
+        <ul class="nav pull-right">
+          <li>
+            <a href="/accounts/profile/">Home</a> 
+          </li>
+          <li>
+              <a href="/accounts/logout/?next=/">logout</a> 
+            </li>
+        </ul>
+      </div>
+      <!--/.nav-collapse --> 
+    </div>
+  </div>
+</div>
+<!--/.nav-end --> 
+	  <script src="/static/bootstrap/js/jquery.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-transition.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-alert.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-modal.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-scrollspy.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-tab.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-popover.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-button.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-collapse.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-carousel.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-typeahead.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-affix.js"></script>
+    <script src="/static/bootstrap/js/holder/holder.js"></script>
+    <script src="/static/bootstrap/js/google-code-prettify/prettify.js"></script>
+    <script src="/static/bootstrap/js/application.js"></script>
+    
+<div class="container">
+ <div class="alert alert-info hidden-phone">
+    <a class="close" data-dismiss="alert">×</a>
+    <span>
+          <b>网站正在开发阶段</b>&nbsp;注册的用户帐号可能随时会被删除。如给您带来不便，谨请谅解。</span> 
+ </div>
+</div>
+<!--/.alert-info end --> 
+
+<div class="container">
+</div> 
+
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span3">
+      <!--/user-info begain --> 
+      <div class="well">
+        <h4><a href="/{{user.username}}/">{{user.username}}</a></h4>
+        <a href="/{{user.username}}/"><img src="/static/bootstrap/img/user_photo.PNG" ></a>
+        <p>{{user_info.describe}}</p>
+        <a>粉丝:</a><a>{{user_info.fans_num}}</a>
+        <a>关注:</a><a>{{user_info.follower_num}}</a>
+      </div>
+      <!--/user-info end --> 
+      {%if login_or_not%}
+      <div class="well">
+      <a href="#myModal" role="button" class="btn btn-info btn-small" data-toggle="modal">上传你的绘画</a>
+      </div>
+      {%else%}
+      <div>
+      </div>
+      {%endif%}
+      <!-- Modal -->
+      <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">上传一张绘画</h3>
+      </div>
+      <div class="modal-body">
+      <p>选择一张您的绘画作品，分享它。</p>
+      <!-- Modal 's form -->
+       <form enctype="multipart/form-data" action="/storage/upload/" method="post">
+        {%csrf_token%}
+      <input name="picture" type="file" class="btn btn-info btn-small">
+      <i class="icon-circle-arrow-left"></i>
+      <p>&nbsp;</p>
+      <p><textarea id="describe" name="describe" placeholder="说些什么…" rows="5" cols="20"></textarea></p>
+      </div>
+      <!-- Modal 's body end -->
+      <div class="modal-footer">
+      <button type="submit" class="btn btn-danger btn-small" data-loading-text="Uploading...">Upload</button>
+      <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+      </div>
+      <!-- Modal 's footer end -->
+      </form>
+      <!-- Modal 's form end-->
+      </div>
+      <!-- end of Modal -->
+   
+
+
+
+	</div>
+	<!--********************************************************-->
+    <div class="span9">
+     
+      {% if last_painting_list %}
+            {%for painting in last_painting_list%}
+            <div class="well">
+                <div class="picture">
+                  <a class="image" href="{{painting.pic_url}}" title="Title"><img src="{{painting.pic_url}}" alt=""/></a>
+                </div>
+                <div class="description">
+                <p>{{painting.describe}}</p>
+                </div>
+                <div class="meta">
+                  <span class="pull-right"><a href="/storage/like/{{painting.id}}/"><i class="icon-heart"></i></a> {{painting.like}}&nbsp;&nbsp;</span>
+                  <span class="pull-right"><i class="icon-user"></i> <a href="/{{user.id}}/"> {{painting.user}}&nbsp;&nbsp;</a></span>
+                  <span class="pull-right"><i class="icon-calendar"></i> {{painting.create_date}}&nbsp;&nbsp;</span>
+                </div>
+                <div>
+                  <p>&nbsp;</p>
+                </div>
+            </div>
+            {% endfor %} 
+      {% else %}
+          <div class="well" >
+            <div class="description">
+              <h4>
+                 Don't upload any painting, please enter the buttont to upload
+              </h4>
+            </div>
+        
+          </div>
+      {% endif %}
+    </div>
+    <!--/.right end --> 
+
+  </div>
+</div>
+
+
+
+
+
+   
+
+</body>
+
+
+</html>
